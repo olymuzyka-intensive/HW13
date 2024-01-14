@@ -106,7 +106,7 @@ class ContactsApp extends Contacts {
         
             editContact.append(fieldNameElem, fieldEmailElem, fieldAddressElem, fieldPhoneElem, btnSaveElem, btnCloseElem);
             this.usersElem.append(editContact);
-        
+            
             btnSaveElem.addEventListener('click', () => {
             const newData = {
                 name: fieldNameElem.value,
@@ -114,7 +114,23 @@ class ContactsApp extends Contacts {
                 address: fieldAddressElem.value,
                 phone: fieldPhoneElem.value
             };
-        
+
+            const testEmail = /\S+@\S+\.\S+/.test(fieldEmailElem.value);
+            const testPhone = /^\+?(375)\s?\-?\(?(29|25|44|33|17)\)?\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]$/g.test(fieldPhoneElem.value);
+            
+            if (!testEmail){
+                fieldEmailElem.style.borderColor = 'red';
+                return;
+            } else fieldEmailElem.style.borderColor = 'green';
+            if (!testPhone){
+                fieldPhoneElem.style.borderColor = 'red';
+                return;
+            } else fieldPhoneElem.style.borderColor = 'green';
+
+            if (!name || !email || !address || !phone) {
+                return;
+            }; 
+           
             this.onSave(id, newData);
                 editContact.remove();
             });
@@ -222,10 +238,10 @@ class ContactsApp extends Contacts {
             const nameElemValue = nameElem.value;
             const emailElemValue = emailElem.value;
             const addressElemValue = addressElem.value;
-            const phonelElemValue = phoneElem.value;
+            const phoneElemValue = phoneElem.value;
 
             const testEmail = /\S+@\S+\.\S+/.test(emailElemValue);
-            const testPhone = /^\+?(375)\s?\-?\(?(29|25|44|33|17)\)?\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]$/g.test(phonelElemValue);
+            const testPhone = /^\+?(375)\s?\-?\(?(29|25|44|33|17)\)?\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]\s?-?[0-9]$/g.test(phoneElemValue);
             
             if (!testEmail ){
                 emailElem.style.borderColor = 'red';
@@ -236,7 +252,7 @@ class ContactsApp extends Contacts {
                 return;
             } else phoneElem.style.borderColor = 'green';
 
-            if (!nameElemValue || !emailElemValue || !addressElemValue || !phonelElemValue) {
+            if (!nameElemValue || !emailElemValue || !addressElemValue || !phoneElemValue) {
                 return;
             }; 
 
@@ -244,7 +260,7 @@ class ContactsApp extends Contacts {
                 name: nameElemValue,
                 email: emailElemValue,
                 address: addressElemValue,
-                phone: phonelElemValue
+                phone: phoneElemValue
             };
 
             this.add(dataFields);
