@@ -127,7 +127,7 @@ class ContactsApp extends Contacts {
                 return;
             } else fieldPhoneElem.style.borderColor = 'green';
 
-            if (!name || !email || !address || !phone) {
+            if (!fieldNameElem.value || !fieldEmailElem.value || !fieldAddressElem.value || !fieldPhoneElem.value) {
                 return;
             }; 
            
